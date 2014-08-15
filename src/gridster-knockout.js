@@ -1,15 +1,18 @@
+// TODO: Not using ko.unwrap everywhere we should be
+
 ko.bindingHandlers.gridster = {
 	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 		var gridster = $(element).data('gridster');
-		var itemsArray = valueAccessor().items;
-		var templateName = ko.unwrap(valueAccessor().templateName);
-		var templateContents = $('#'+templateName).html();
+		var model = ko.unwrap(valueAccessor)();
+		var itemsArray = ko.unwrap(model.items);
+		var template = ko.unwrap(model.template);
+		var templateContents = $('#'+template).html();
 
 		// Some of the items may already have widget IDs, so we have
 		// to initialize the counter to be higher than that
 		var idCounter = 1;
-		for (var i = 0; i < itemsArray().length; i++) {
-			var item = itemsArray()[i];
+		for (var i = 0; i < itemsArray.length; i++) {
+			var item = itemsArray[i];
 			if (item.widgetId && item.widgetId() >= idCounter)
 				idCounter = parseInt(item.widgetId()) + 1;
 		}
@@ -17,9 +20,9 @@ ko.bindingHandlers.gridster = {
 		var addWidget = function(widget) {
 			var col = (widget.col !== undefined) ? parseInt(widget.col()) : null;
 			var row = (widget.row !== undefined) ? parseInt(widget.row()) : null;
-			var size_x = parseInt(widget.size_x());
-			var size_y = parseInt(widget.size_y());
-			var addedWidget = gridster.add_widget(templateContents,size_x,size_y,col,row);
+			var sizex = parseInt(widget.sizex());
+			var sizey = parseInt(widget.sizey());
+			var addedWidget = gridster.add_widget(templateContents,sizex,sizey,col,row);
 
 			// Update the col and row based on it being added
 			if (widget.col === undefined)
@@ -51,20 +54,20 @@ ko.bindingHandlers.gridster = {
 		};
 
 		var getWidgetModelById = function(widgetId) {
-			for (var i = 0; i < itemsArray().length; i++) {
-				var item = itemsArray()[i];
+			for (var i = 0; i < itemsArray.length; i++) {
+				var item = itemsArray[i];
 				if (item.widgetId() == widgetId)
 					return item;
 			}
 			return null;
 		};
 
-		for (var i = 0; i < itemsArray().length; i++) {
-			item = itemsArray()[i];
+		for (var i = 0; i < itemsArray.length; i++) {
+			item = itemsArray[i];
 			addWidget(item);
 		}
 
-		itemsArray.subscribe(function (changes) {
+		model.items.subscribe(function (changes) {
 			changes.forEach(function (change) {
 				switch(change.status) {
 					case 'added':
@@ -82,8 +85,8 @@ ko.bindingHandlers.gridster = {
 
 		var syncPositionsToModel = function() {
 			// Loop through all model items
-			for (var i = 0; i < itemsArray().length; i++) {
-				var item = itemsArray()[i];
+			for (var i = 0; i < itemsArray.length; i++) {
+				var item = itemsArray[i];
 				var eleColValue = $(item.gridsterElement).attr('data-col');
 				var eleRowValue = $(item.gridsterElement).attr('data-row');
 				item.col(eleColValue);
@@ -99,8 +102,8 @@ ko.bindingHandlers.gridster = {
 			var newSizeY = $widget.attr('data-sizey');
 
 			var widgetModel = getWidgetModelById(widgetId);
-			widgetModel.size_x(newSizeX);
-			widgetModel.size_y(newSizeY);
+			widgetModel.sizex(newSizeX);
+			widgetModel.sizey(newSizeY);
 
 			// Move a widget can change the positions of all other widgets
 			syncPositionsToModel();

@@ -7,7 +7,7 @@ block content
         input#popItem(type='button',value='pop item')
 
     .gridster
-        ul(data-bind="gridster:{items:gridItems,templateName:$root.templateName}")
+        ul(data-bind="gridster:{items:gridItems,template:$root.template}")
 
     script#theTemplate(type='text/html')
         li
@@ -20,9 +20,9 @@ block content
                 span ,
                 span(data-bind="text: col")
             div My size:
-                span(data-bind="text: size_x")
+                span(data-bind="text: sizex")
                 span ,
-                span(data-bind="text: size_y")
+                span(data-bind="text: sizey")
 
 block script
     script(type='text/javascript').
@@ -46,13 +46,13 @@ block script
 
             var viewModel = {
                 gridItems: [
-                    {row:'1',col:'1',size_x:'4',size_y:'5',widgetId:'45'},
-                    {row:'1',col:'5',size_x:'4',size_y:'5'},
-                    {row:'6',col:'1',size_x:'4',size_y:'5',widgetId:'17'},
-                    {row:'6',col:'5',size_x:'4',size_y:'5'},
+                    {row:'1',col:'1',sizex:'4',sizey:'5',widgetId:'45'},
+                    {row:'1',col:'5',sizex:'4',sizey:'5'},
+                    {row:'6',col:'1',sizex:'4',sizey:'5',widgetId:'17'},
+                    {row:'6',col:'5',sizex:'4',sizey:'5'},
                 ],
 
-                templateName: 'theTemplate',
+                template: 'theTemplate',
 
                 someValue: 'some value from viewModel',
             };
@@ -69,8 +69,8 @@ block script
                 var item = {
                     //row: ko.observable('10'), // Optional
                     //col: ko.observable('10'), // Optional
-                    size_x: ko.observable('4'),
-                    size_y: ko.observable('5'),
+                    sizex: ko.observable('4'),
+                    sizey: ko.observable('5'),
                 };
                 mappedViewModel.gridItems.push(item);
             });

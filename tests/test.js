@@ -25,10 +25,10 @@ describe("gridster-knockout", function () {
 
     var viewModel = {
         gridItems: [
-            {row:'1',col:'1',size_x:'2',size_y:'3'},
-            {row:'1',col:'3',size_x:'2',size_y:'3'},
-            {row:'4',col:'1',size_x:'2',size_y:'3'},
-            {row:'4',col:'3',size_x:'2',size_y:'3'},
+            {row:'1',col:'1',sizex:'2',sizey:'3'},
+            {row:'1',col:'3',sizex:'2',sizey:'3'},
+            {row:'4',col:'1',sizex:'2',sizey:'3'},
+            {row:'4',col:'3',sizex:'2',sizey:'3'},
         ],
     };
              
@@ -49,8 +49,8 @@ describe("gridster-knockout", function () {
         var item = {
             row: ko.observable('10'),
             col: ko.observable('10'),
-            size_x: ko.observable('2'),
-            size_y: ko.observable('3'),
+            sizex: ko.observable('2'),
+            sizey: ko.observable('3'),
         };
         mappedViewModel.gridItems.push(item);
 
@@ -80,8 +80,8 @@ describe("gridster-knockout", function () {
         var item = {
             row: ko.observable('10'),
             col: ko.observable('10'),
-            size_x: ko.observable('4'),
-            size_y: ko.observable('4'),
+            sizex: ko.observable('4'),
+            sizey: ko.observable('4'),
         };
         mappedViewModel.gridItems.push(item);
         var currCount = mappedViewModel.gridItems().length;
@@ -110,4 +110,7 @@ describe("gridster-knockout", function () {
     it('should add widgetId if not present in model');
     it('should not dupe widgetId if already used in model');
     it('should not overwrite widgetId if already provided by model');
+
+    it('should work with observables');
+    it('should work with non-observables');
 });
