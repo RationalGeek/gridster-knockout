@@ -3,9 +3,32 @@
         <title> Tests </title>
         <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
         <link rel="stylesheet" href="http://gridster.net/dist/jquery.gridster.css" />
+        <style type="text/css">
+            .gridster > ul {
+                margin: 0;
+                background-color: gray;
+                list-style-type: none;
+            }
+
+            .gridster > ul > li {
+                background-color: lightblue;
+                border: solid 2px black;
+            }
+        </style>
     </head>
     <body>
+        <div class="gridster">
+            <ul data-bind="gridster:{items:gridItems, templateName:'basicTemplate'}"></ul>
+        </div>
+
+        <script id="basicTemplate" type="text/html">
+            <li>
+                <div>Basic template</div>
+            </li>
+        </script>
+
         <div id="mocha"></div>
+
         <script src="../node_modules/mocha/mocha.js"></script>
         <script src="../node_modules/chai/chai.js"></script>
 

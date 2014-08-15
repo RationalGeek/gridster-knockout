@@ -8,7 +8,7 @@ ko.bindingHandlers.gridster = {
 	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 		var gridster = $(element).data('gridster');
 		var itemsArray = valueAccessor().items;
-		var templateName = valueAccessor().templateName();
+		var templateName = ko.unwrap(valueAccessor().templateName);
 		var templateContents = $('#'+templateName).html();
 		var idCounter = 1;
 
