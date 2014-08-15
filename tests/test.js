@@ -106,4 +106,8 @@ describe("gridster-knockout", function () {
 
     it('child bindings execute');
     it('child bindings update');
+
+    it('should add widgetId if not present in model');
+    it('should not dupe widgetId if already used in model');
+    it('should not overwrite widgetId if already provided by model');
 });

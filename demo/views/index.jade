@@ -46,9 +46,9 @@ block script
 
             var viewModel = {
                 gridItems: [
-                    {row:'1',col:'1',size_x:'4',size_y:'5'},
+                    {row:'1',col:'1',size_x:'4',size_y:'5',widgetId:'45'},
                     {row:'1',col:'5',size_x:'4',size_y:'5'},
-                    {row:'6',col:'1',size_x:'4',size_y:'5'},
+                    {row:'6',col:'1',size_x:'4',size_y:'5',widgetId:'17'},
                     {row:'6',col:'5',size_x:'4',size_y:'5'},
                 ],
 
@@ -76,6 +76,6 @@ block script
             });
 
             $('#popItem').click(function() {
-                mappedViewModel.gridItems.pop(item);
+                mappedViewModel.gridItems.pop();
             });
         });

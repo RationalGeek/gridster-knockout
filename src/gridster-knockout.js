@@ -4,7 +4,15 @@ ko.bindingHandlers.gridster = {
 		var itemsArray = valueAccessor().items;
 		var templateName = ko.unwrap(valueAccessor().templateName);
 		var templateContents = $('#'+templateName).html();
+
+		// Some of the items may already have widget IDs, so we have
+		// to initialize the counter to be higher than that
 		var idCounter = 1;
+		for (var i = 0; i < itemsArray().length; i++) {
+			var item = itemsArray()[i];
+			if (item.widgetId && item.widgetId() >= idCounter)
+				idCounter = parseInt(item.widgetId()) + 1;
+		}
 
 		var addWidget = function(widget) {
 			var col = (widget.col !== undefined) ? parseInt(widget.col()) : null;
@@ -21,8 +29,10 @@ ko.bindingHandlers.gridster = {
 
 			// Keep an id for each widget so we can keep our sanity
 			if (widget.widgetId === undefined)
+			{
 				widget.widgetId = ko.observable();
-			widget.widgetId(idCounter++);
+				widget.widgetId(idCounter++);
+			}
 			addedWidget.attr('data-widgetId', widget.widgetId());
 
 			// Keep track of the element that was created with the widget
@@ -70,11 +80,20 @@ ko.bindingHandlers.gridster = {
 			});
 		}, null, "arrayChange");
 
+		var syncPositionsToModel = function() {
+			// Loop through all model items
+			for (var i = 0; i < itemsArray().length; i++) {
+				var item = itemsArray()[i];
+				var eleColValue = $(item.gridsterElement).attr('data-col');
+				var eleRowValue = $(item.gridsterElement).attr('data-row');
+				item.col(eleColValue);
+				item.row(eleRowValue);
+			}
+		};
+
 		// Just in case the consumer set up their own resize handler, we need to chain the calls
 		var oldOnResize = gridster.options.resize.stop;
 		gridster.options.resize.stop = function(event, ui, $widget) {
-			//alert('binding onresize');
-
 			var widgetId = $widget.attr('data-widgetId');
 			var newSizeX = $widget.attr('data-sizex');
 			var newSizeY = $widget.attr('data-sizey');
@@ -83,15 +102,17 @@ ko.bindingHandlers.gridster = {
 			widgetModel.size_x(newSizeX);
 			widgetModel.size_y(newSizeY);
 
+			// Move a widget can change the positions of all other widgets
+			syncPositionsToModel();
+
 			if (oldOnResize !== undefined)
 				oldOnResize(event, ui, $widget);
 		};
-
+ 
 		var oldOnMove = gridster.options.draggable.stop;
 		gridster.options.draggable.stop = function(event, ui) {
-			//alert('binding on move');
-
-			// TODO: Figure out what widget moved, and to where
+			// Moving a widget can change the positions of all other widgets
+			syncPositionsToModel();
 
 			if (oldOnMove !== undefined)
 				oldOnMove(event, ui);
