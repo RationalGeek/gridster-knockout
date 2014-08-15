@@ -2,11 +2,20 @@
     <head>
         <title> Tests </title>
         <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+        <link rel="stylesheet" href="http://gridster.net/dist/jquery.gridster.css" />
     </head>
     <body>
         <div id="mocha"></div>
         <script src="../node_modules/mocha/mocha.js"></script>
         <script src="../node_modules/chai/chai.js"></script>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
+        <script src="http://gridster.net/dist/jquery.gridster.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-debug.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+        <script src="../build/gridster-knockout.js"></script>
+
         <script>
             mocha.ui('bdd');
             var should = chai.should(); 

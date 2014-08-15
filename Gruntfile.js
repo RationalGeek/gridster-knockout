@@ -1,21 +1,22 @@
 module.exports = function(grunt) {
-  var taskList = ['copy', 'mocha_phantomjs'];
+  var taskList = ['copy', 'uglify', 'mocha_phantomjs'];
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    //uglify: {
-    //  options: {
-    //    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-    //  },
-    //  build: {
-    //    src: 'src/<%= pkg.name %>.js',
-    //    dest: 'build/<%= pkg.name %>.min.js'
-    //  }
-    //}
+    uglify: {
+     options: {
+       banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+     },
+     build: {
+       src: 'build/<%= pkg.name %>.js',
+       dest: 'build/<%= pkg.name %>.min.js'
+     }
+    },
 	copy: {
 	  main: {
 	    files: [
-		  { expand: true, flatten: true, src: 'src/gridster-knockout.js', dest: 'demo/public/scripts/' },
+		  { expand: true, flatten: true, src: 'src/gridster-knockout.js', dest: 'build/' },
+          { expand: true, flatten: true, src: 'src/gridster-knockout.js', dest: 'demo/public/scripts/' },
 		],
 	  },
 	},
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
 	},
   });
 
-  //grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');

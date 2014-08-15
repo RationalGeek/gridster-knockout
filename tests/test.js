@@ -11,3 +11,9 @@ describe("DOM Test", function () {
         (myEl.innerHTML).should.equal("Hello World!");
     });
 });
+
+describe("gridster-knockout", function () {
+    it("custom binding present", function () {
+        ko.bindingHandlers.gridster.should.exist; 
+    });
+});
