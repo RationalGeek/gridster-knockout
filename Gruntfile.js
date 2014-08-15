@@ -1,11 +1,15 @@
 module.exports = function(grunt) {
-  var taskList = ['copy', 'uglify', 'mocha_phantomjs'];
+  var taskList = ['buildDebug', 'uglify', 'copy', 'mocha_phantomjs'];
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
      options: {
-       banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+       banner: '/*!\n' +
+        ' * <%= pkg.name %> v<%= pkg.version %>\n' +
+        ' * (c) Justin Kohlhepp - <%= pkg.homepage %>\n' +
+        ' * License: <%= pkg.licenses[0].type %> (<%= pkg.licenses[0].url %>)\n' +
+        ' */\n\n',
      },
      build: {
        src: 'build/<%= pkg.name %>.js',
@@ -15,8 +19,7 @@ module.exports = function(grunt) {
 	copy: {
 	  main: {
 	    files: [
-		  { expand: true, flatten: true, src: 'src/gridster-knockout.js', dest: 'build/' },
-          { expand: true, flatten: true, src: 'src/gridster-knockout.js', dest: 'demo/public/scripts/' },
+          { expand: true, flatten: true, src: 'build/gridster-knockout.debug.js', dest: 'demo/public/scripts/' },
 		],
 	  },
 	},
@@ -32,6 +35,13 @@ module.exports = function(grunt) {
 		},
 	  },
 	},
+  });
+
+  grunt.registerTask('buildDebug', 'Build debug version', function(target) {
+    var source = [];
+    source.push(grunt.config('uglify.options.banner'));
+    source.push(grunt.file.read('./src/gridster-knockout.js'));
+    grunt.file.write('build/gridster-knockout.debug.js', source.join('').replace(/\r\n/g, '\n'));
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');

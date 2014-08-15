@@ -11,5 +11,9 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha-phantomjs": "^0.6.0",
     "mocha": "^1.21.3"
-  }
+  },
+  "license":"MIT",
+  "licenses": [
+    { "type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php" }
+  ]
 }
