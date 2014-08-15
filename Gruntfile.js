@@ -12,29 +12,29 @@ module.exports = function(grunt) {
         ' */\n\n',
      },
      build: {
-       src: 'build/<%= pkg.name %>.js',
+       src: 'src/<%= pkg.name %>.js',
        dest: 'build/<%= pkg.name %>.min.js'
      }
     },
-	copy: {
-	  main: {
-	    files: [
-          { expand: true, flatten: true, src: 'build/gridster-knockout.debug.js', dest: 'demo/public/scripts/' },
-		],
-	  },
-	},
+    copy: {
+      main: {
+        files: [
+            { expand: true, flatten: true, src: 'build/gridster-knockout.debug.js', dest: 'demo/public/scripts/' },
+        ],
+      },
+    },
     mocha_phantomjs: {
       all: ['tests/testrunner.html']
     },
-	watch: {
-	  scripts: {
-		files: ['src/**/*.js', 'tests/**/*.*'],
-		tasks: taskList,
-		options: {
-		  spawn: false,
-		},
-	  },
-	},
+    watch: {
+      scripts: {
+        files: ['src/**/*.js', 'tests/**/*.*'],
+        tasks: taskList,
+        options: {
+          spawn: false,
+        },
+      },
+    },
   });
 
   grunt.registerTask('buildDebug', 'Build debug version', function(target) {
