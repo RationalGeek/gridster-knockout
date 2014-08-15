@@ -1,0 +1,23 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.gridster > ul {
+	margin: 0;
+	background-color: gray;
+	list-style-type: none;
+}
+
+.gridster > ul > li {
+	background-color: lightblue;
+	border: solid 2px black;
+}
+
+.header {
+	margin-bottom: 20px;
+}

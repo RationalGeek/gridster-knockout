@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//gridster.net/dist/jquery.gridster.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    block head
+  body
+    block content
+
+    //script(src='/scripts/lib/debug.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js')
+    script(src='//gridster.net/dist/jquery.gridster.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-debug.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js')
+    script(src='/scripts/gridster-knockout.js')
+
+    block script

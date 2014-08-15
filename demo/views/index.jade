@@ -1,0 +1,81 @@
+extends layout
+
+block content
+    .header
+        input#changeValue(type='button',value='change value')
+        input#pushItem(type='button',value='push item')
+        input#popItem(type='button',value='pop item')
+
+    .gridster
+        ul(data-bind="gridster:{items:gridItems,templateName:$root.templateName}")
+
+    script#theTemplate(type='text/html')
+        li
+            div Value from root:
+                span(data-bind="text: $root.someValue")
+            div Widget ID:
+                span(data-bind="text: widgetId")
+            div My position:
+                span(data-bind="text: row")
+                span ,
+                span(data-bind="text: col")
+            div My size:
+                span(data-bind="text: size_x")
+                span ,
+                span(data-bind="text: size_y")
+
+block script
+    script(type='text/javascript').
+        $(document).ready(function () {
+            var gridster = $(".gridster>ul").gridster({
+                widget_margins: [5, 5],
+                widget_base_dimensions: [25, 25],
+                avoid_overlapped_widgets: true,
+                resize: {
+                    enabled: true, 
+                    //stop: function(event, ui, $widget) {
+                    //    alert('custom onresize');
+                    //},
+                },
+                //draggable: {
+                //    stop: function(event, ui) {
+                //        alert("custom draggable stop");
+                //    },
+                //},
+            }).data('gridster');
+
+            var viewModel = {
+                gridItems: [
+                    {row:'1',col:'1',size_x:'4',size_y:'5'},
+                    {row:'1',col:'5',size_x:'4',size_y:'5'},
+                    {row:'6',col:'1',size_x:'4',size_y:'5'},
+                    {row:'6',col:'5',size_x:'4',size_y:'5'},
+                ],
+
+                templateName: 'theTemplate',
+
+                someValue: 'some value from viewModel',
+            };
+                     
+            var mappedViewModel = ko.mapping.fromJS(viewModel);
+            ko.applyBindings(mappedViewModel);
+
+            var someCounter = 1;
+            $('#changeValue').click(function() {
+                mappedViewModel.someValue('something different ' + someCounter++);
+            });
+
+            $('#pushItem').click(function() {
+                var item = {
+                    //row: ko.observable('10'), // Optional
+                    //col: ko.observable('10'), // Optional
+                    size_x: ko.observable('4'),
+                    size_y: ko.observable('5'),
+                };
+                mappedViewModel.gridItems.push(item);
+            });
+
+            $('#popItem').click(function() {
+                mappedViewModel.gridItems.pop(item);
+            });
+        });
