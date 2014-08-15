@@ -70,7 +70,7 @@ ko.bindingHandlers.gridster = {
 						gridster.remove_widget(change.value.gridsterElement);
 						break;
 					default:
-						alert('wtf? ' + change.status);
+						throw new Error('Unexpected change.status');
 						break;
 				}
 			});
