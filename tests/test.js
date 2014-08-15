@@ -1,19 +1,3 @@
-// http://stackoverflow.com/questions/13281561/using-mocha-phantomjs-to-automate-functional-testing
-
-/*
-describe("DOM Test", function () {
-    var el = document.createElement("div");
-    el.id = "myDiv";
-    el.innerHTML = "Hello World!";
-    document.body.appendChild(el);
-    var myEl = document.getElementById('myDiv');
-
-    it("can add a DIV", function () {
-        (myEl.innerHTML).should.equal("Hello World!");
-    });
-});
-*/
-
 describe("gridster-knockout", function () {
     var gridster = $(".gridster>ul").gridster({
         widget_margins: [5, 5],
@@ -113,4 +97,7 @@ describe("gridster-knockout", function () {
 
     it('should work with observables');
     it('should work with non-observables');
+
+    it('should still fire custom resize events');
+    it('should still fire custom drag events');
 });
