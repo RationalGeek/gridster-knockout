@@ -89,7 +89,9 @@ ko.bindingHandlers.gridster = {
 
 		var oldOnMove = gridster.options.draggable.stop;
 		gridster.options.draggable.stop = function(event, ui) {
-			alert('binding on move');
+			//alert('binding on move');
+
+			// TODO: Figure out what widget moved, and to where
 
 			if (oldOnMove !== undefined)
 				oldOnMove(event, ui);

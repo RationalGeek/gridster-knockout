@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+  var taskList = ['copy', 'mocha_phantomjs'];
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     //uglify: {
@@ -17,10 +19,13 @@ module.exports = function(grunt) {
 		],
 	  },
 	},
+    mocha_phantomjs: {
+      all: ['tests/testrunner.html']
+    },
 	watch: {
 	  scripts: {
-		files: ['src/**/*.js'],
-		tasks: ['copy'],
+		files: ['src/**/*.js', 'tests/**/*.*'],
+		tasks: taskList,
 		options: {
 		  spawn: false,
 		},
@@ -31,6 +36,7 @@ module.exports = function(grunt) {
   //grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
-  grunt.registerTask('default', ['copy', /*'uglify'*/]);
+  grunt.registerTask('default', taskList);
 };
